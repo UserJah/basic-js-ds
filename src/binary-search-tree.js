@@ -6,16 +6,51 @@ const { NotImplementedError } = require('../extensions/index.js');
 * Implement simple binary search tree according to task description
 * using Node from extensions
 */
+
+class TreeNode {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
 class BinarySearchTree {
 
-  root() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor () {
+    this.root = null;
   }
 
-  add(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  root() {
+    if (!this.BinarySearchTree[0]) {
+      return null
+    }
+    return this.BinarySearchTree[0];
+  }
+
+  add(data) {
+    const newNode = new TreeNode(data)
+    if (!this.root) {
+      this.root = newNode;
+      return;
+    }
+
+    let curretNode = this.root;
+
+    while(curretNode == true) {
+      if (newNode.data < curretNode.data) {
+        if (!curretNode.left) {
+          curretNode.left = newNode;
+          return;
+        }
+        curretNode = curretNode.left
+      } else {
+          if (!curretNode.right) {
+            curretNode.right = newNode;
+            return;
+        }
+        curretNode = curretNode.right;
+      }
+    }
   }
 
   has(/* data */) {
