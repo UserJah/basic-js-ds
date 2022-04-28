@@ -66,14 +66,14 @@ describe('Binary search tree', () => {
 
     it.optional('find non-existing values', () => {
       const tree = new BinarySearchTree();
-      tree.add(2);
-      tree.add(7);
-      tree.add(1);
-      tree.add(8);
-      tree.add(4);
-      tree.add(32);
-      tree.add(12);
-      tree.add(14);
+        tree.add(2);
+        tree.add(7);
+        tree.add(1);
+        tree.add(8);
+        tree.add(4);
+        tree.add(32);
+        tree.add(12);
+        tree.add(14);
       assert.strictEqual(tree.find(33), null);
       assert.strictEqual(tree.find(1337), null);
       assert.strictEqual(tree.find(42), null);

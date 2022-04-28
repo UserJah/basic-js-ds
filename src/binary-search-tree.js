@@ -10,12 +10,13 @@ const { NotImplementedError } = require('../extensions/index.js');
 class TreeNode {
   constructor(data) {
     this.data = data;
+    this.parent = null;
     this.left = null;
     this.right = null;
   }
 }
-class BinarySearchTree {
 
+class BinarySearchTree {
   constructor () {
     this.rootNode = null;
   }
@@ -28,40 +29,61 @@ class BinarySearchTree {
     }
   }
 
+  //add nodes to tree
   add(data) {
-    const newNode = new TreeNode(data)
-    if (!this.rootNode) {
-      this.rootNode = newNode;
-      return;
-    }
+    this.rootNode = addWithcin(this.rootNode, data);
 
-    let curretNode = this.rootNode;
-
-    while(curretNode == true) {
-      if (newNode.data < curretNode.data) {
-        if (!curretNode.left) {
-          curretNode.left = newNode;
-          return;
-        }
-        curretNode = curretNode.left
-      } else {
-          if (!curretNode.right) {
-            curretNode.right = newNode;
-            return;
-        }
-        curretNode = curretNode.right;
+    function addWithcin(node, data) {
+      if (!node) {
+        return new TreeNode(data);
       }
+
+      if (node.data === data) {
+        return node;
+    
+      }
+      if (data < node.data) {
+        node.left = addWithcin(node.left, data);
+      } else {
+        node.right = addWithcin(node.right, data);
+      }
+
+      return node;
     }
   }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  has(data) {
+    return searchWithin(this.rootNode, data)
+
+    function searchWithin(node, data) {
+      if (!node) {
+        return false;
+      }
+
+      if (node.data === data) {
+        return true;
+      }
+      return data < node.data ? 
+      searchWithin(node.left, data) : 
+      searchWithin(node.right, data);
+    }
   }
 
-  find(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  find(data) {
+
+    function findWitchin(node, data) {
+      if (!node.data) {
+        return false;
+      }
+      if (node.data === data) {
+        return node.data;
+      }
+      return data < node.data ? 
+      findWitchin(node.left, data) : 
+      findWitchin(node.right, data);
+    }
+    
+    return findWitchin(this.rootNode, data);
   }
 
   remove(/* data */) {
@@ -70,13 +92,25 @@ class BinarySearchTree {
   }
 
   min() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    if (!this.rootNode) {
+      return null;
+    }
+    let node = this.rootNode;
+    while (node.left) {
+      node = node.left;
+    }
+    return node.data;
   }
 
   max() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    if (!this.rootNode) {
+      return null;
+    }
+    let node = this.rootNode;
+    while (node.right) {
+      node = node.right;
+    }
+    return node.data;
   }
 }
 
