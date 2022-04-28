@@ -17,24 +17,25 @@ class TreeNode {
 class BinarySearchTree {
 
   constructor () {
-    this.root = null;
+    this.rootNode = null;
   }
 
   root() {
-    if (!this.BinarySearchTree[0]) {
-      return null
+    if (!this.rootNode) {
+      return null;
+    } else {
+      return this.rootNode;
     }
-    return this.BinarySearchTree[0];
   }
 
   add(data) {
     const newNode = new TreeNode(data)
-    if (!this.root) {
-      this.root = newNode;
+    if (!this.rootNode) {
+      this.rootNode = newNode;
       return;
     }
 
-    let curretNode = this.root;
+    let curretNode = this.rootNode;
 
     while(curretNode == true) {
       if (newNode.data < curretNode.data) {

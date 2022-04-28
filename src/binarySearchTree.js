@@ -8,21 +8,25 @@ class TreeNode {
   class BinarySearchTree {
   
     constructor () {
-      this.root = null;
+      this.rootNode = null;
     }
-  
+    // show rootNode node
     root() {
-        return BinarySearchTree[0].data;
+        if (this.rootNode === null) {
+          return null;
+        } else {
+          return this.rootNode;
+        }
       }
-  
+    //add nodes to tree
     add(data) {
       const newNode = new TreeNode(data)
-      if (!this.root) {
-        this.root = newNode;
+      if (!this.rootNode) {
+        this.rootNode = newNode;
         return;
       }
   
-      let curretNode = this.root;
+      let curretNode = this.rootNode;
   
       while(curretNode) {
         if (newNode.data < curretNode.data) {
@@ -81,3 +85,4 @@ class TreeNode {
   myTree.add(14);
   
   console.log(myTree);
+  console.log(myTree.root().data);
