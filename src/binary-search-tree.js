@@ -72,11 +72,11 @@ class BinarySearchTree {
   find(data) {
 
     function findWitchin(node, data) {
-      if (!node.data) {
-        return false;
+      if (!node) {
+        return null;
       }
       if (node.data === data) {
-        return node.data;
+        return node;
       }
       return data < node.data ? 
       findWitchin(node.left, data) : 
@@ -86,30 +86,71 @@ class BinarySearchTree {
     return findWitchin(this.rootNode, data);
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  remove(data) {
+    this.root = removeNode(this.rootNode, data);
+
+    function removeNode(node, data) {
+      if (!node) {
+        return null;
+      }
+
+      if (data < node.data) {
+        node.left = removeNode(node.left, data);
+        return node;
+      } else if (data > node.data) {
+        node.right = removeNode(node.right, data);
+        return node;
+      } else {  // if data === node.data => 3 options:
+        if (!node.left && !node.right) { // if node has no childerns
+          return null;
+        }
+
+        if (!node.left) { // if node has no node left children
+          node = node.right;
+          return node // return link on right children
+        }
+
+        if (!node.right) { // if node has no node left children
+          node = node.left;
+          return node // return link on left children
+        }
+
+        // if left and right children exist
+
+        let minFromRigth = node.right; // search min on rigth subtree
+        while (minFromRigth.left !== null) { // keep going to the left on rigth subtree
+          minFromRigth = minFromRigth.left;
+        }
+        node.data = minFromRigth.data // node data has min value of tree
+
+        node.right = removeNode(node.right, minFromRigth.data); // delete min node from right subtree
+      }
+    }
   }
 
-  min() {
+  min() { // always node.left leaf
     if (!this.rootNode) {
       return null;
     }
+
     let node = this.rootNode;
     while (node.left) {
       node = node.left;
     }
+
     return node.data;
   }
 
-  max() {
+  max() { // always node.rigth leaf
     if (!this.rootNode) {
       return null;
     }
+
     let node = this.rootNode;
     while (node.right) {
       node = node.right;
     }
+
     return node.data;
   }
 }
